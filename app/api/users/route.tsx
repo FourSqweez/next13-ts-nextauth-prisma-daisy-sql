@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
+import prisma from "@/prisma/client";
 
 // GET - getting data
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   // fetch users from a db
-  return NextResponse.json([
-    { id: 1, name: "Four" },
-    { id: 2, name: "Alex" },
-  ]);
+  const users = await prisma.user.findMany();
+  return NextResponse.json(users);
 }
 // POST - creating data
 // PUT - updating data
