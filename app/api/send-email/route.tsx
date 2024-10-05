@@ -1,16 +1,16 @@
-import WelcomeTemplate from "@/emails/WelcomeTemplate";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { renderAsync } from "@react-email/render";
+import WelcomeTemplate from "@/emails/WelcomeTemplate";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const runtime = "edge";
 
-export async function POST() {
-  await resend.emails.send({
-    from: "four7518@gmail.com",
-    to: "jeerasak.code@gmail.com",
-    subject: "test send email",
-    react: <WelcomeTemplate name="Four" />,
-  });
-
-  return NextResponse.json({});
+export async function GET() {
+  try {
+    const html = await renderAsync(
+      WelcomeTemplate({ name: "John" }) as React.ReactElement,
+    );
+    return NextResponse.json({ html });
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
 }
