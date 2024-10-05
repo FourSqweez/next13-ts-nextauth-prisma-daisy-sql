@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const user = await prisma.user.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: params.id,
     },
   });
 
@@ -30,7 +30,7 @@ export async function PUT(
 
   const user = await prisma.user.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: params.id,
     },
   });
 
@@ -56,7 +56,7 @@ export async function DELETE(
 ) {
   const user = await prisma.user.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: params.id,
     },
   });
 
